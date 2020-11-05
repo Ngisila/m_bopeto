@@ -20,3 +20,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('/adresse', 'AdresseController');
 Route::resource('/frequence', 'FrequenceController');
+Route::resource('/mode_paiement', 'ModePaieController');
+Route::resource('/service_evacuation', 'ServiceEvController');
+Route::resource('/fonction', 'FonctionController');
