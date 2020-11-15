@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Service_Evacuation;
+use App\Type_evacuation;
 use Illuminate\Http\Request;
 
-class ServiceEvController extends Controller
+class TypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class ServiceEvController extends Controller
      */
     public function index()
     {
-        $services = Service_Evacuation::all();
+        $types = Type_evacuation::all();
         return response()->json([
-            'services' => $services
+            "types" => $types
         ], 200);
     }
 
@@ -38,15 +38,12 @@ class ServiceEvController extends Controller
      */
     public function store(Request $request)
     {
-        $services = new Service_Evacuation([
-            'label_serv' => $request->get('label_serv'),
-            'objectif' => $request->get('objectif'),
-            'mission' => $request->get('mission'),
-            'description' => $request->get('description'),
+        $types = new Type_evacuation([
+            'libevac' => $request->get('libevac')
         ]);
-        $services->save();
+        $types->save();
         return response()->json([
-            'Donnee enregistrer'
+            'Donnée enregistrer'
         ], 200);
     }
 
@@ -58,14 +55,14 @@ class ServiceEvController extends Controller
      */
     public function show($id)
     {
-        $services = Service_Evacuation::find($id);
-        if (!$services) {
+        $types = Type_evacuation::find($id);
+        if (!$types) {
             return response()->json([
-                'Donnee non trouver'
-            ], 400);
+                'Donnée non trouver'
+            ], 500);
         }
         return response()->json([
-            'modes' => $services
+            'types' => $types
         ], 201);
     }
 
@@ -89,26 +86,19 @@ class ServiceEvController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $services = Service_Evacuation::where('id', $id)->first();
-        if (!$services) {
+        $types = Type_evacuation::where('id', $id)->first();
+        if (!$types) {
             return response()->json([
-                'Donnee non enregistre'
+                'Donnée non sauvegarder'
             ], 500);
         }
-        $label_serv = $request->input('label_serv');
-        $objectif = $request->input('objectif');
-        $mission = $request->input('mission');
-        $description = $request->input('description');
+        $libevac = $request->input("libevac");
 
-        $services->label_serv = $label_serv;
-        $services->objectif = $objectif;
-        $services->mission = $mission;
-        $services->description = $description;
+        $types->libevac = $libevac;
 
-        $services->save();
-
+        $types->save();
         return response()->json([
-            'Donnee updated'
+            'Adresse upate'
         ], 200);
     }
 
@@ -120,16 +110,15 @@ class ServiceEvController extends Controller
      */
     public function destroy($id)
     {
-        $services = Service_Evacuation::find($id);
-
-        if (!$services) {
+        $types = Type_evacuation::find($id);
+        if (!$types) {
             return response()->json([
-                'Donnee non trouver'
+                'Donnée non trouver'
             ], 200);
         }
-        $services->delete();
+        $types->delete();
         return response()->json([
-            'Donnee supprimer'
+            'Donnée Suprimer avec success'
         ], 201);
     }
 }

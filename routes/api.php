@@ -21,10 +21,12 @@ use Illuminate\Support\Facades\Route;
 Route::resource('/adresse', 'AdresseController');
 Route::resource('/frequence', 'FrequenceController');
 Route::resource('/mode_paiement', 'ModePaieController');
-Route::resource('/service_evacuation', 'ServiceEvController');
+Route::resource('/service_evacuation', 'ServiceController');
 Route::resource('/fonction', 'FonctionController');
-Route::resource('/personne', 'PersonneController');
-Route::post('/agent', 'PersonneController@AddAgent');
+Route::resource('/abonne', 'AbonneController');
+Route::resource('/agent', 'AgentController');
+Route::resource('/evacuation', 'EvacuationController');
+Route::resource('/paiement', 'PaiementController');
 
 Route::group(
     [

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAbonneFrequencesTable extends Migration
+class CreateEvacuationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreateAbonneFrequencesTable extends Migration
      */
     public function up()
     {
-        Schema::create('abonne_frequences', function (Blueprint $table) {
+        Schema::create('evacuations', function (Blueprint $table) {
             $table->id();
+            $table->boolean('confirmation')->default(0);
+            $table->string('observation');
             $table->foreignId('abonne_id')->constrained('abonnes');
             $table->foreignId('frequen_id')->constrained('frequences');
+            $table->foreignId('type_id')->constrained('type_evacuations');
+            $table->foreignId('agent_id')->constrained('agents');
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ class CreateAbonneFrequencesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('abonne_frequences');
+        Schema::dropIfExists('evacuations');
     }
 }

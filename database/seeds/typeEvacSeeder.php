@@ -12,11 +12,11 @@ class typeEvacSeeder extends Seeder
      */
     public function run()
     {
-        /* $types = array('Ordinaire', 'Special');
+        $types = array('Ordinaire', 'Special');
         foreach ($types as $value) {
             $types = new Type_evacuation();
             $types->libevac = $value;
             $types->save();
-        } */
+        }
     }
 }

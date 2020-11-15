@@ -6,13 +6,29 @@ use Illuminate\Database\Eloquent\Model;
 
 class Abonne extends Model
 {
+    //
     protected $table = 'abonnes';
     protected $fillable = [
-        'personn_id'
+        'nom',
+        'prenom',
+        'telephone',
+        'adress_id',
+        'frequence_id',
+        'servi_id',
     ];
 
-    public function Personne()
+    public function Adresse()
     {
-        return $this->belongsTo('App\Personne', 'personn_id', 'id');
+        return $this->belongsTo('App\Adresse', 'adress_id', 'id');
+    }
+
+    public function Frequence()
+    {
+        return $this->belongsTo('App\Frequence', 'frequence_id', 'id');
+    }
+
+    public function Service()
+    {
+        return $this->belongsTo('App\Service', 'servi_id', 'id');
     }
 }

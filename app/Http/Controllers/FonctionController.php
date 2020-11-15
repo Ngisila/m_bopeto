@@ -14,9 +14,10 @@ class FonctionController extends Controller
      */
     public function index()
     {
-        $fonctions = Fonction::all();
+        //
+        $fonction = Fonction::all();
         return response()->json([
-            'fonction' => $fonctions
+            'fonction' => $fonction
         ], 200);
     }
 
@@ -38,12 +39,13 @@ class FonctionController extends Controller
      */
     public function store(Request $request)
     {
-        $fonctions = new Fonction([
+        //
+        $fonction = new Fonction([
             'libel_fonction' => $request->get('libel_fonction')
         ]);
-        $fonctions->save();
+        $fonction->save();
         return response()->json([
-            'Donnee enregistrer'
+            'Donnée enregistrer'
         ], 200);
     }
 
@@ -55,14 +57,15 @@ class FonctionController extends Controller
      */
     public function show($id)
     {
+        //
         $fonction = Fonction::find($id);
         if (!$fonction) {
             return response()->json([
-                'Donnee non trouver'
-            ], 400);
+                'Donnée non trouver'
+            ], 500);
         }
         return response()->json([
-            'modes' => $fonction
+            'fonction' => $fonction
         ], 201);
     }
 
@@ -86,18 +89,19 @@ class FonctionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $fonctions = Fonction::where('id', $id)->first();
-        if (!$fonctions) {
+        $fonction = Fonction::where('id', $id);
+        if (!$fonction) {
             return response()->json([
-                'Donnee non enregistre'
+                'Donnée non sauvegarder'
             ], 500);
         }
         $libel_fonction = $request->input('libel_fonction');
-        $fonctions->libel_fonction = $libel_fonction;
-        $fonctions->save();
+        $fonction->libel_fonction = $libel_fonction;
+
+        $fonction->save();
 
         return response()->json([
-            'Donnee updated'
+            'Adresse upate'
         ], 200);
     }
 
@@ -109,15 +113,16 @@ class FonctionController extends Controller
      */
     public function destroy($id)
     {
-        $fonctions = Fonction::find($id);
-        if (!$fonctions) {
+        //
+        $fonction = Fonction::find($id);
+        if (!$fonction) {
             return response()->json([
-                'Donnee non trouver'
+                'Donnée non trouver'
             ], 200);
         }
-        $fonctions->delete();
+        $fonction->delete();
         return response()->json([
-            'Donnee supprimer'
+            'Donnée Suprimer avec success'
         ], 201);
     }
 }

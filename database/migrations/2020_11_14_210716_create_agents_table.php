@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePaiementsTable extends Migration
+class CreateAgentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreatePaiementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('paiements', function (Blueprint $table) {
+        Schema::create('agents', function (Blueprint $table) {
             $table->id();
-            $table->string('num_paie');
-            $table->string('mont_paie');
-            $table->foreignId('mode_paie_id')->constrained('mode__paiements');
-            $table->foreignId('agent_id')->constrained('agents');
+            $table->string('nom');
+            $table->string('prenom');
+            $table->string('telephone');
+            $table->foreignId('fonct_id')->constrained('fonctions');
+            $table->foreignId('servi_id')->constrained('service_evacuations');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreatePaiementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('paiements');
+        Schema::dropIfExists('agents');
     }
 }

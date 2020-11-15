@@ -14,9 +14,10 @@ class PaiementController extends Controller
      */
     public function index()
     {
+        //
         $paiement = Paiement::all();
         return response()->json([
-            "paiement" => $paiement
+            'paiement' => $paiement
         ], 200);
     }
 
@@ -38,13 +39,14 @@ class PaiementController extends Controller
      */
     public function store(Request $request)
     {
+        //
         $paiement = new Paiement([
-            'num_paie' => $request->get('num_paie'),
-            'mont_paie' => $request->get('mont_paie'),
-            'mode_paie_id' => $request->get('mode_paie_id'),
+            'num_paiement' => $request->get('num_paiement'),
+            'mont_paiemen' => $request->get('mont_paiemen'),
+            'mode_id' => $request->get('mode_id'),
             'agent_id' => $request->get('agent_id'),
+            'evac_id' => $request->get('evac_id'),
         ]);
-
         $paiement->save();
         return response()->json([
             'Donnée enregistrer'
@@ -59,6 +61,7 @@ class PaiementController extends Controller
      */
     public function show($id)
     {
+        //
         $paiement = Paiement::find($id);
         if (!$paiement) {
             return response()->json([
@@ -66,7 +69,7 @@ class PaiementController extends Controller
             ], 500);
         }
         return response()->json([
-            'adresses' => $paiement
+            'paiement' => $paiement
         ], 201);
     }
 
@@ -90,24 +93,27 @@ class PaiementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $paiement = Paiement::where('id', $id)->first();
+        //
+        $paiement = Paiement::where('id', $id);
         if (!$paiement) {
             return response()->json([
                 'Donnée non sauvegarder'
             ], 500);
         }
-
-        $num_paie = $request->input('num_paie');
-        $mont_paie = $request->input('mont_paie');
-        $mode_paie_id = $request->input('mode_paie_id');
+        $num_paiement = $request->input('num_paiement');
+        $mont_paiemen = $request->input('mont_paiemen');
+        $mode_id = $request->input('mode_id');
         $agent_id = $request->input('agent_id');
+        $evac_id = $request->input('evac_id');
 
-        $paiement->num_paie = $num_paie;
-        $paiement->mont_paie = $mont_paie;
-        $paiement->mode_paie_id = $mode_paie_id;
+        $paiement->num_paiement = $num_paiement;
+        $paiement->mont_paiemen = $mont_paiemen;
+        $paiement->mode_id = $mode_id;
         $paiement->agent_id = $agent_id;
+        $paiement->evac_id = $evac_id;
 
         $paiement->save();
+
         return response()->json([
             'Adresse upate'
         ], 200);
@@ -121,6 +127,7 @@ class PaiementController extends Controller
      */
     public function destroy($id)
     {
+        //
         $paiement = Paiement::find($id);
         if (!$paiement) {
             return response()->json([

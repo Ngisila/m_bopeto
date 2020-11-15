@@ -6,25 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Agent extends Model
 {
+    //
     protected $table = 'agents';
     protected $fillable = [
-        'personn_id',
+        'nom',
+        'prenom',
+        'telephone',
         'fonct_id',
-        'serv_id'
+        'servi_id'
     ];
 
-    public function personnes()
-    {
-        return $this->belongsTo('App\Personne', 'personn_id', 'id');
-    }
-
-    public function fonctions()
+    public function Fonction()
     {
         return $this->belongsTo('App\Fonction', 'fonct_id', 'id');
     }
 
-    public function services()
+    public function Service()
     {
-        return $this->belongsTo('App\Service_Evacuation', 'serv_id', 'id');
+        return $this->belongsTo('App\ServiceEvacuation', 'servi_id', 'id');
     }
 }

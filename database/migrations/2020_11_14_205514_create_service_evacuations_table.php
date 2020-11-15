@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePaiementEvacuationsTable extends Migration
+class CreateServiceEvacuationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreatePaiementEvacuationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('paiement_evacuations', function (Blueprint $table) {
+        Schema::create('service_evacuations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('paiem_id')->constrained('paiements');
-            $table->foreignId('evac_id')->constrained('evacuations');
+            $table->string('label_serv');
+            $table->string('objectif');
+            $table->string('mission');
+            $table->string('description');
+            $table->foreignId('adress_id')->constrained('adresses');
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ class CreatePaiementEvacuationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('paiement_evacuations');
+        Schema::dropIfExists('service_evacuations');
     }
 }

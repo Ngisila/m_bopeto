@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Adresse;
+use App\Agent;
 use Illuminate\Http\Request;
 
-class AdresseController extends Controller
+class AgentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,10 @@ class AdresseController extends Controller
      */
     public function index()
     {
-        $adresse = Adresse::all();
+        //
+        $agent = Agent::all();
         return response()->json([
-            'adresse' => $adresse
+            'agent' => $agent
         ], 200);
     }
 
@@ -39,13 +40,14 @@ class AdresseController extends Controller
     public function store(Request $request)
     {
         //
-        $adresse = new Adresse([
-            'num_parc' => $request->get('num_parc'),
-            'avenue' => $request->get('avenue'),
-            'quartier' => $request->get('quartier'),
-            'commune' => $request->get('commune'),
+        $agent = new Agent([
+            'nom' => $request->get('nom'),
+            'prenom' => $request->get('prenom'),
+            'telephone' => $request->get('telephone'),
+            'fonct_id' => $request->get('fonct_id'),
+            'servi_id' => $request->get('servi_id'),
         ]);
-        $adresse->save();
+        $agent->save();
         return response()->json([
             'Donnée enregistrer'
         ], 200);
@@ -60,14 +62,14 @@ class AdresseController extends Controller
     public function show($id)
     {
         //
-        $adresse = Adresse::find($id);
-        if (!$adresse) {
+        $agent = Agent::find($id);
+        if (!$agent) {
             return response()->json([
                 'Donnée non trouver'
             ], 500);
         }
         return response()->json([
-            'adresses' => $adresse
+            'agent' => $agent
         ], 201);
     }
 
@@ -92,23 +94,26 @@ class AdresseController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $adresse = Adresse::where('id', $id);
-        if (!$adresse) {
+        $agent = Agent::where('id', $id);
+        if (!$agent) {
             return response()->json([
                 'Donnée non sauvegarder'
             ], 500);
         }
-        $num_parc = $request->input('num_parc');
-        $avenue = $request->input('avenue');
-        $quartier = $request->input('quartier');
-        $commune = $request->input('commune');
+        $nom = $request->input('nom');
+        $prenom = $request->input('prenom');
+        $telephone = $request->input('telephone');
+        $fonct_id = $request->input('fonct_id');
+        $servi_id = $request->input('servi_id');
 
-        $adresse->num_parc = $num_parc;
-        $adresse->avenue = $avenue;
-        $adresse->quartier = $quartier;
-        $adresse->commune = $commune;
+        $agent->nom = $nom;
+        $agent->prenom = $prenom;
+        $agent->telephone = $telephone;
+        $agent->fonct_id = $fonct_id;
+        $agent->servi_id = $servi_id;
 
-        $adresse->save();
+        $agent->save();
+
         return response()->json([
             'Adresse upate'
         ], 200);
@@ -123,13 +128,13 @@ class AdresseController extends Controller
     public function destroy($id)
     {
         //
-        $adresse = Adresse::find($id);
-        if (!$adresse) {
+        $agent = Agent::find($id);
+        if (!$agent) {
             return response()->json([
                 'Donnée non trouver'
             ], 200);
         }
-        $adresse->delete();
+        $agent->delete();
         return response()->json([
             'Donnée Suprimer avec success'
         ], 201);

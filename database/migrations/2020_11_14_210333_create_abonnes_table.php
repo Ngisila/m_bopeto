@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAdresseServicesTable extends Migration
+class CreateAbonnesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreateAdresseServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('adresse_services', function (Blueprint $table) {
+        Schema::create('abonnes', function (Blueprint $table) {
             $table->id();
+            $table->string('nom');
+            $table->string('prenom');
+            $table->string('telephone');
             $table->foreignId('adress_id')->constrained('adresses');
-            $table->foreignId('servi_id')->constrained('service__evacuations');
+            $table->foreignId('frequence_id')->constrained('frequences');
+            $table->foreignId('servi_id')->constrained('service_evacuations');
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ class CreateAdresseServicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('adresse_services');
+        Schema::dropIfExists('abonnes');
     }
 }
